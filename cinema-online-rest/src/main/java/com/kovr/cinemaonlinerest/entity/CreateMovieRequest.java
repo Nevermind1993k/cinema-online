@@ -7,7 +7,7 @@ import lombok.experimental.FieldDefaults;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CreateMovieRequest extends AModifyMovieRequest {
+public class CreateMovieRequest {
 
     String name;
     int year;

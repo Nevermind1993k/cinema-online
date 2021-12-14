@@ -19,9 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 
-import static com.kovr.cinemaonlinerest.rest.MovieRestService.MOVIE_THEATER_URL;
-
-@RestController(MOVIE_THEATER_URL)
+@RestController(MovieRestService.MOVIE_THEATER_URL)
 @RequiredArgsConstructor
 public class MovieRestService {
 
@@ -33,6 +31,7 @@ public class MovieRestService {
     @PostMapping
     public ResponseEntity<IdMovieResponse> createMovie(@RequestBody CreateMovieRequest createMovieRequest) {
         //TODO validation
+
         MovieDto movieDtoToSave = movieRestBuilder.buildMovieDto(createMovieRequest);
         MovieDto createdMovie = movieService.createMovie(movieDtoToSave);
 
@@ -40,11 +39,12 @@ public class MovieRestService {
     }
 
     @GetMapping
-    public ResponseEntity<MovieDetailsResponse> getMovie(@RequestParam String id) {
+    public ResponseEntity<MovieDetailsResponse> getMovieDetails(@RequestParam("id") String id) {
         //TODO validation
-        MovieDto dtoById = movieService.getMovie(id);
 
+        MovieDto dtoById = movieService.getMovie(id);
         MovieDetailsResponse detailsResponse = movieRestBuilder.buildMovieRestResponse(dtoById);
+
         return ResponseEntity.ok(detailsResponse);
     }
 
@@ -54,19 +54,19 @@ public class MovieRestService {
         //TODO check for null and pattern
 
         MovieDto dtoToUpdate = movieRestBuilder.buildMovieDto(updateMovieRequest);
-
         MovieDto updateMovie = movieService.updateMovie(id, dtoToUpdate);
-
         MovieDetailsResponse detailsResponse = movieRestBuilder.buildMovieRestResponse(updateMovie);
+
         return ResponseEntity.ok(detailsResponse);
     }
 
     @DeleteMapping
-    public ResponseEntity<IdMovieResponse> deleteMovie(@RequestParam String id) {
+    public ResponseEntity<IdMovieResponse> deleteMovie(@RequestParam("id") String id) {
         //TODO validation
+
         MovieDto deletedMovie = movieService.deleteMovie(id);
 
-        return ResponseEntity.created(URI.create(MOVIE_THEATER_URL)).body(IdMovieResponse.of(deletedMovie.getId()));
+        return ResponseEntity.ok(IdMovieResponse.of(deletedMovie.getId()));
     }
 
 }

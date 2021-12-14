@@ -4,7 +4,7 @@ import com.kovr.cinemaonlineapi.dto.MovieDto;
 
 public interface IMovieService {
 
-    MovieDto createMovie(MovieDto movieDto);
+    MovieDto createMovie(MovieDto movieDtoToSave);
 
     MovieDto getMovie(String id);
 

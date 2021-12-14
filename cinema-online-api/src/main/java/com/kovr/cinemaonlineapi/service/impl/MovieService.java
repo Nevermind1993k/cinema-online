@@ -11,7 +11,7 @@ public class MovieService implements IMovieService {
 
     @Override
     @Transactional
-    public MovieDto createMovie(MovieDto movieDto) {
+    public MovieDto createMovie(MovieDto movieDtoToSave) {
         //TODO
         return MovieDto.builder().build();
     }
